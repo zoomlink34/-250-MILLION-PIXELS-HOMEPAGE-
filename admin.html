@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin - 250M Pixels</title></head>
+<body style="font-family:sans-serif; background:#f0f0f0; padding:40px;">
+    <div id="login" style="max-width:300px; margin:auto; text-align:center;">
+        <h2>Admin Access</h2>
+        <input type="password" id="pass" placeholder="Enter Password" style="width:100%; padding:10px; margin-bottom:10px;">
+        <button onclick="auth()" style="width:100%; padding:10px; background:#000; color:#fff;">LOGIN</button>
+    </div>
+    <div id="panel" style="display:none; max-width:800px; margin:auto;">
+        <h1>Pending Reviews</h1>
+        <hr>
+        <div id="list"></div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        function auth(){ if(document.getElementById('pass').value==="KAWSARahmed22@@"){ document.getElementById('login').style.display='none'; document.getElementById('panel').style.display='block'; start(); }}
+        firebase.initializeApp({databaseURL: "https://m-legacy-5cf2b-default-rtdb.firebaseio.com/"});
+        function start(){
+            firebase.database().ref('pending').on('value', snap => {
+                const div = document.getElementById('list'); div.innerHTML="";
+                snap.forEach(c => {
+                    div.innerHTML += `<div style="background:#fff; padding:15px; margin:10px 0; border:1px solid #ccc; display:flex; align-items:center; justify-content:space-between;">
+                        <span><strong>Slot: ${c.key}</strong></span>
+                        <img src="${c.val().imageUrl}" width="40" style="border:1px solid #eee;">
+                        <div>
+                            <button onclick="approve('${c.key}','${c.val().imageUrl}','${c.val().siteUrl}')" style="background:green; color:#fff; padding:8px;">APPROVE</button>
+                            <button onclick="reject('${c.key}')" style="background:red; color:#fff; padding:8px;">REJECT</button>
+                        </div>
+                    </div>`;
+                });
+            });
+        }
+        function approve(id, img, url){
+            firebase.database().ref('pixels/'+id).set({imageUrl:img, link:url}).then(() => {
+                firebase.database().ref('pending/'+id).remove();
+            });
+        }
+        function reject(id){ if(confirm("Delete this submission?")) firebase.database().ref('pending/'+id).remove(); }
+    </script>
+</body>
+</html>
