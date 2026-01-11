@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Submit Your Slot - 250 Million Pixels</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .form-container { background: white; padding: 40px; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 350px; }
+    h2 { text-align: center; color: #333; }
+    input { display: block; width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background: #cc0000; color: white; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #aa0000; }
+</style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>RESERVE YOUR SLOT</h2>
+        <input type="number" id="slot" placeholder="Slot Number (1-100,000)">
+        <input type="text" id="img" placeholder="Direct Image URL">
+        <input type="text" id="url" placeholder="Your Website URL">
+        <button onclick="submit()">SUBMIT FOR REVIEW</button>
+        <p style="font-size: 11px; color: #888; text-align: center; margin-top: 15px;">Your logo will appear blurred until payment is confirmed.</p>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        firebase.initializeApp({databaseURL: "https://m-legacy-5cf2b-default-rtdb.firebaseio.com/"});
+        function submit(){
+            const s = document.getElementById('slot').value;
+            const i = document.getElementById('img').value;
+            if(!s || !i) return alert("Please fill Slot Number and Image URL");
+            firebase.database().ref('pending/'+s).set({
+                imageUrl: i, siteUrl: document.getElementById('url').value
+            }).then(() => { alert("Success! Your logo is now in review."); window.location.href="index.html"; });
+        }
+    </script>
+</body>
+</html>
