@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>250 MILLION PIXELS HOMEPAGE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div id="header">
+    <div class="top-row">
+        <span class="tagline">Would you like me</span>
+        <h1 class="main-title">250 MILLION PIXELS HOMEPAGE</h1>
+        <div class="search-section">
+            <input type="number" id="searchSlot" placeholder="Slot No.">
+            <button onclick="searchHome()">FIND SLOT</button>
+        </div>
+    </div>
+    <div class="stats-bar">
+        <span>100,000 SLOTS AVAILABLE | 50x50 PIXEL EACH SLOT</span>
+        <span class="counter">SOLD: <span id="sold-count">0</span> / 100,000</span>
+        <a href="order.html" class="cta-button">ORDER YOUR SLOT NOW</a>
+    </div>
+</div>
+
+<div id="canvas-wrapper">
+    <canvas id="billboardCanvas"></canvas>
+</div>
+
+<div id="notice-section">
+    <p><strong>NOTICE:</strong> Your logo will appear blurred and grayscale until payment is verified by our admin team.</p>
+</div>
+
+<div id="footer">
+    <div class="payment-info">
+        <span>Binance UID: <strong>912221034</strong></span> | 
+        <span>USDT (TRC20): <strong>TTapBkTqrDnzHbWzek6wSBUTcJKFmR8Ws6</strong></span>
+    </div>
+    <p>&copy; 2024 250 Million Pixels Homepage. All Rights Reserved.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
